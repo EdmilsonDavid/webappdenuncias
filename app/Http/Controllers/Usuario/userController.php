@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Usuario;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SendMail;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -62,17 +63,25 @@ class userController extends Controller
 
 
         }else{
-            if ($request->has(['nome', 'email','endereco','telefone','descricao','cargo','situacao'])) {
+            if ($request->has(['nome', 'email','endereco','telefone','situacao'])) {
                 $passord=rand(1111111,99999999);
                 $user=new User();
                 $user->name=$request->nome;
                 $user->email=$request->email;
                 $user->password=Hash::make($passord);
                 $user->situacao=(int)($request->situacao);
-                $user->bairro=$request->endereco;
+                $user->morada=$request->endereco;
                 $user->telefone=$request->telefone;
                 $user->perfil="foto.png";
                 $user->save();
+
+                $details = [
+                    'title' => 'Bem Vindo a nossa plataforma do CeCAGe',
+                    'body' => 'Password: '.$passord.' Link da plataforma: http://127.0.0.1:8000/login'
+                ];
+
+                \Mail::to($request->email)->send(new SendMail($details));
+
 
                 return response()->json($request->all());
             }

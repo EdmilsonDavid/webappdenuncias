@@ -121,11 +121,14 @@ Route::get('admin', function (){
 
 /*Denucias presencial*/
 Route::get('denuncia-presencial','Denuncia\DenunciaPresencialController@index')->name('denuncia-presencial');
+Route::post('gravar-denuncia-presencial','Denuncia\DenunciaPresencialController@store');
+Route::post('gravar-denuncia-presencial-situacao','Denuncia\DenunciaPresencialController@situacao');
 
 
 
 /*Denuncias do chat*/
 Route::get('denuncia-chat','Denuncia\DenunciaChatController@index')->name('denuncia-chat');
+Route::post('gravar-denuncia-chat','Denuncia\DenunciaChatController@store');
 Route::get('apagar',function(){
     return view('denuncia.dpresencias');
 });

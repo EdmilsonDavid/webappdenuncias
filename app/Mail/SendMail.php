@@ -29,7 +29,7 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Mail from Real Programmer')
+        return $this->subject('Centro de Coordenação dos Assuntos do Género da Universidade Eduardo Mondlane')
             ->view('emails.sendmail');
     }
 }

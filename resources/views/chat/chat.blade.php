@@ -220,7 +220,7 @@
                                 <div class="mesgs" >
                                     <div class="msg_history" id="msg_history">
                               <h1>Inicie uma conversa</h1>
-                                        <video src="{{asset('ajax.mp4')}}" width="300" autoplay controls></video>
+
                                     </div>
                                     <input type="file">
                                     <div class="type_msg">

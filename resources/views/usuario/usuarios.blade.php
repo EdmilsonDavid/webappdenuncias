@@ -559,7 +559,7 @@
                 </div>
             </div>
 
-       @include('rodape')
+       {{--@include('rodape')--}}
     </div>
     </div>
 
@@ -653,7 +653,7 @@
        function salvare() {
 
 
-
+alert("Ola mundo")
 
            var situacao = [];
            $('.get_radio').each(function() {
@@ -665,7 +665,7 @@
          var status=(situacao)[0];
          console.log(status);
 
-//Metodo para inserir fornecedor via ajax
+//Metodo para inserir  usuario via ajax
          $.ajax({
                 type:'post',
                 url: 'usuario/salvar',
@@ -686,7 +686,8 @@
                 success:function(data){
                     if($.isEmptyObject(data.error)){
                           console.log(data);
-                          alert(data.success);
+                          console.log("Chegou aqui");
+                        window.location.reload()
                     }else{
 
                         printErrorMsg(data.error);

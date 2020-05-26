@@ -61,6 +61,78 @@
     <!-- modernizr JS
 		============================================ -->
     <script src="{{asset('js/vendor/modernizr-2.8.3.min.js')}}"></script>
+
+
+
+    <style>
+        input[type=range] {
+            -webkit-appearance: none;
+            margin: 20px 0;
+            width: 100%;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            animate: 0.2s;
+            background: #03a9f4;
+            border-radius: 25px;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 0 4px 0 rgba(0,0,0, 1);
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -10px;
+        }
+        input[type=range]:focus::-webkit-slider-runnable-track {
+            background: #03a9f4;
+        }
+        .range-wrap{
+
+            position: relative;
+        }
+        .range-value{
+            position: absolute;
+            top: -1000%;
+        }
+        .range-value span{
+            width: 30px;
+            height: 24px;
+            line-height: 24px;
+            text-align: center;
+            background: #03a9f4;
+            color: #fff;
+            font-size: 12px;
+            display: block;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 0);
+            border-radius: 6px;
+        }
+        .range-value span:before{
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-top: 10px solid #03a9f4;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            margin-top: -1px;
+        }
+    </style>
+
+
+
 </head>
 
 <body>
@@ -327,7 +399,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                                <input type="text" class="form-control" data-mask="999-99-999-9999-9" placeholder="">
+                                                <input type="text" class="form-control" name="nome" placeholder="">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -337,7 +409,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                                <input type="text" class="form-control" data-mask="999 99 999 9999 9" placeholder="">
+                                                <input type="text" class="form-control" name="telefone" placeholder="">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -347,7 +419,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                                <input type="text" class="form-control"  placeholder="">
+                                                <input type="text" class="form-control" name="email" placeholder="">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -358,7 +430,7 @@
                                         </div>
                                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
                                             <div class="input-mark-inner mg-b-22">
-                                                <input type="text" class="form-control" placeholder="">
+                                                <input type="text" class="form-control" name="acusado" placeholder="">
                                             </div>
                                         </div>
                                     </div>
@@ -369,7 +441,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                                <input type="text" class="form-control" placeholder="Faculdade/Departamento onde o Acusado se encontra">
+                                                <input type="text" class="form-control" name="local" placeholder="Faculdade/Departamento onde o Acusado se encontra">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -379,9 +451,9 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                            <select name="" id="" class="form-control">
-                                                <option value="">Moral</option>
-                                                <option value="">Sexual</option>
+                                            <select name="tipodeassedio" id="" class="form-control">
+                                                <option value="Moral">Moral</option>
+                                                <option value="Sexual">Sexual</option>
                                             </select>
                                         </div>
                                     </div>
@@ -394,13 +466,12 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                                <textarea name="" id="" class="form-control" rows="4"></textarea>
+                                                <textarea name="descricao" id="" class="form-control" rows="4"></textarea>
 
                                         </div>
                                     </div>
-
-
-
+                                    <hr>
+                                    <button class="btn btn-primary" onclick="salvar()">Gravar</button>
                                 </div>
                             </div>
                             </div>
@@ -438,54 +509,43 @@
                                                 <th>Telefone</th>
                                                 <th>Tipo de Assedio</th>
                                                 <th>Acusado(a)</th>
-                                                <th>CSS grade</th>
+                                                <th>Situação da denúncia</th>
+                                                <th>Detalhes</th>
+                                                <th>Registar a Situação</th>
+                                                <th>Editar</th>
+                                                <th>Editar</th>
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            @isset($dpresencias)
+                                            @foreach($dpresencias as $dpresencial)
                                             <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 4.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td> 4</td>
-                                                <td>X</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td>5</td>
-                                                <td>C</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.5
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td>5.5</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 6
-                                                </td>
-                                                <td>Win 98+</td>
-                                                <td>6</td>
-                                                <td>A</td>
-                                            </tr>
+                                                <td>{{$dpresencial->nome}}</td>
+                                                <td>{{$dpresencial->telefone}}</td>
+                                                <td>{{$dpresencial->tipodeassedio}}</td>
+                                                <td> {{$dpresencial->denuciado}}</td>
+                                                @if($dpresencial->estado==0)
+                                                <td>Nao resolvido</td>
+                                                @elseif($dpresencial->estado==100)
+                                                    <td>Resolvido</td>
+                                                 @else
+                                                    <td>Em processo</td>
+                                                 @endif
 
-                                            <tr>
-                                                <td>Other browsers</td>
-                                                <td>All others</td>
-                                                <td>-</td>
-                                                <td>-</td>
-                                                <td>U</td>
+                                                <td> <button data-toggle="modal" data-target="#exampleModalLong" style="border-radius: 10px; width: 90px;"  class="btn-info buscarparamostrar" id="" data-id="" > <i class="glyphicon glyphicon-zoom-in icon-white"></i>
+                                                        Detalhes</button></td>
+                                                <td> <button data-toggle="modal" data-target="#exampleModalLong" style="border-radius: 10px; width: 90px;"  class="btn-warning buscarparamudarestado" id="{{$dpresencial->id}}" data-id="{{$dpresencial}}" > <i class="glyphicon glyphicon-stats icon-white"></i>
+                                                        Situação</button></td>
+                                                <td><button   data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="border-radius: 10px; width: 95px;" class="btn-success buscarParaEditar" id=""  data-id=""><i class="fa fa-edit"></i> Editar</button></td>
+                                                <td>
+
+
+
+                                                <button class="btn-danger buscarParaRemover" style="border-radius: 10px; width: 95px;" id="" data-id=""><i class="fa fa-trash"></i> Remover</button>
+                                                </td>
                                             </tr>
+                                             @endforeach
+                                             @endisset
                                             </tbody>
                                             <tfoot>
                                             <tr>
@@ -493,7 +553,11 @@
                                                 <th>Telefone</th>
                                                 <th>Tipo de Assedio</th>
                                                 <th>Acusado(a)</th>
-                                                <th>CSS grade</th>
+                                                <th>Situação da denúncia</th>
+                                                <th>Detalhes</th>
+                                                <th>Registar a Situação</th>
+                                                <th>Editar</th>
+                                                <th>Editar</th>
                                             </tr>
                                             </tfoot>
                                         </table>
@@ -532,6 +596,67 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {{--========================================== modal para detalhes de informacao de user ================================--}}
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"style=" color: #0B792F" >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #1c7430">
+                    <h5 class="modal-title" id="exampleModalLongTitle" style="color: white">Registar a Situação</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="color: #000000" >
+                    <div class="row">
+                       <div class="col-lg-12">
+                        <div class="form-group">
+
+                            <div class="range-wrap">
+                                <div class="range-value" id="rangeV"></div>
+                                <input id="range" type="range" min="0" max="100"  name="situacao"  step="1">
+
+                            </div>
+                            <input type="text" name="idsituacao" id="idsituacao" hidden>
+                        </div>
+                       </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <button class="btn btn-primary" onclick="salvarestado()">Gravar</button>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {{--======================================================= Fim de modal de detalhes====================================--}}
+
 
     <!-- jquery
 		============================================ -->
@@ -591,8 +716,8 @@
 
 
     <!-- DataTables -->
-    <script src="tabelaD/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="tabelaD/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="{{asset('tabelaD/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('tabelaD/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
 
 
 
@@ -609,6 +734,105 @@
             })
         })
     </script>
+
+
+    <script>
+        function salvar() {
+            $.ajax({
+                type:'post',
+                url: 'gravar-denuncia-presencial',
+                dataType: "json",
+                data:{
+                    '_token':$('input[name=_token]').val(),
+                    'nome':$('input[name=nome]').val(),
+                    'telefone':$('input[name=telefone]').val(),
+                    'email':$('input[name=email]').val(),
+                    'denuciado':$('input[name=acusado]').val(),
+                    'local':$('input[name=local]').val(),
+                    'tipodeassedio':$('select[name=tipodeassedio]').val(),
+                    'descricao':$('textarea[name=descricao]').val(),
+
+                },
+                success:function(data){
+                    if($.isEmptyObject(data.error)){
+                        console.log(data);
+                        alert(data.success);
+                    }else{
+
+                        alert("Correu um erro, tente novamente")
+                    }
+
+                }
+            });
+
+        }
+
+
+    </script>
+
+
+    <script>
+        const
+            range = document.getElementById('range'),
+            rangeV = document.getElementById('rangeV'),
+            setValue = ()=>{
+                const
+                    newValue = Number( (range.value - range.min) * 100 / (range.max - range.min) ),
+                    newPosition = 10 - (newValue * 0.2);
+                rangeV.innerHTML = `<span>${range.value}</span>`;
+                rangeV.style.left = `calc(${newValue}% + (${newPosition}px))`;
+            };
+        document.addEventListener("DOMContentLoaded", setValue);
+        range.addEventListener('input', setValue);
+    </script>
+    <script>
+
+
+        $(document).ready(function(){
+            $('.buscarparamudarestado').on('click',function(){
+                var id = $(this).attr('id');
+                var  objJson = $(this).data('id');
+                console.log('o id é: '+id);
+                //console.log(val(objJson[id].email));
+                console.log('o index é: '+objJson);
+                //$('#modalBuscar').html(id[$('.buscar').val()].nome);
+                document.getElementById('range').value=objJson['estado'];
+                document.getElementById('idsituacao').value=objJson['id'];
+
+            })
+        });
+
+
+
+
+        function salvarestado() {
+            $.ajax({
+                type:'post',
+                url: 'gravar-denuncia-presencial-situacao',
+                dataType: "json",
+                data:{
+                    '_token':$('input[name=_token]').val(),
+                    'situacao':$('input[name=situacao]').val(),
+                    'id':$('input[name=idsituacao]').val(),
+                },
+                success:function(data){
+                    if($.isEmptyObject(data.error)){
+                        console.log(data);
+                        alert(data.success);
+                    }else{
+
+                        alert("Correu um erro, tente novamente")
+                    }
+
+                }
+            });
+
+        }
+
+    </script>
+
+
+
 </body>
 
 </html>

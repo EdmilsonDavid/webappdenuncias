@@ -331,11 +331,12 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                                <select data-placeholder="Choose a Country..." class="chosen-select" tabindex="-1">
-                                                    <option value="">Select</option>
-
-                                                    <option value="Zambia">Zambia maldi</option>
-                                                    <option value="Zimbabwe">Zimbabwe mak</option>
+                                                <select name="vitimachat" data-placeholder="Escolha uma vitima..." class="chosen-select" tabindex="-1">
+                                                    @isset($vitimas)
+                                                    @foreach($vitimas as $vitima)
+                                                    <option value="{{$vitima->id}}">{{$vitima->nome}}-{{$vitima->email}}-{{$vitima->telefone}}</option>
+                                                    @endforeach
+                                                    @endisset
                                                 </select>
                                             </div>
 
@@ -349,29 +350,10 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                                <input type="text" class="form-control" data-mask="999-99-999-9999-9" placeholder="">
+                                                <input type="text" class="form-control" name="nome" placeholder="">
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                            <div class="input-mask-title">
-                                                <label>Numero da Vitima</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                                <input type="text" class="form-control" data-mask="999 99 999 9999 9" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                            <div class="input-mask-title">
-                                                <label>Email da Vitima</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                                <input type="text" class="form-control"  placeholder="">
-                                        </div>
-                                    </div>
+
                                     <div class="row">
                                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                                             <div class="input-mask-title">
@@ -380,7 +362,7 @@
                                         </div>
                                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
                                             <div class="input-mark-inner mg-b-22">
-                                                <input type="text" class="form-control" placeholder="">
+                                                <input type="text" name="acusado" class="form-control" placeholder="">
                                             </div>
                                         </div>
                                     </div>
@@ -391,7 +373,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                                <input type="text" class="form-control" placeholder="Faculdade/Departamento onde o Acusado se encontra">
+                                                <input type="text" name="local" class="form-control" placeholder="Faculdade/Departamento onde o Acusado se encontra">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -401,9 +383,9 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                            <select name="" id="" class="form-control">
-                                                <option value="">Moral</option>
-                                                <option value="">Sexual</option>
+                                            <select name="tipodeassedio" id="" class="form-control">
+                                                <option value="Moral">Moral</option>
+                                                <option value="Sexual">Sexual</option>
                                             </select>
                                         </div>
                                     </div>
@@ -416,11 +398,12 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                                <textarea name="" id="" class="form-control" rows="4"></textarea>
+                                                <textarea name="descricao" id="" class="form-control" rows="4"></textarea>
 
                                         </div>
                                     </div>
-
+                                    <hr>
+                                    <button class="btn btn-primary" onclick="salvar()">Gravar</button>
 
 
                                 </div>
@@ -464,50 +447,19 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 4.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td> 4</td>
-                                                <td>X</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td>5</td>
-                                                <td>C</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.5
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td>5.5</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 6
-                                                </td>
-                                                <td>Win 98+</td>
-                                                <td>6</td>
-                                                <td>A</td>
-                                            </tr>
 
+                                           @isset($denuncias)
+                                            @foreach($denuncias as $denuncia)
                                             <tr>
-                                                <td>Other browsers</td>
-                                                <td>All others</td>
-                                                <td>-</td>
+                                                <td>{{$denuncia->nome}}</td>
+                                                <td>{{$denuncia->vitima->telefone}}</td>
+
+                                                <td>{{$denuncia->tipodeassedio}}</td>
                                                 <td>-</td>
                                                 <td>U</td>
                                             </tr>
+                                            @endforeach
+                                            @endisset
                                             </tbody>
                                             <tfoot>
                                             <tr>
@@ -633,6 +585,39 @@
                 'autoWidth'   : false
             })
         })
+    </script>
+
+    <script>
+        function salvar() {
+            $.ajax({
+                type:'post',
+                url: 'gravar-denuncia-chat',
+                dataType: "json",
+                data:{
+                    '_token':$('input[name=_token]').val(),
+                    'nome':$('input[name=nome]').val(),
+                    'denuciado':$('input[name=acusado]').val(),
+                    'local':$('input[name=local]').val(),
+                    'tipodeassedio':$('select[name=tipodeassedio]').val(),
+                    'vitimachat':$('select[name=vitimachat]').val(),
+                    'descricao':$('textarea[name=descricao]').val(),
+
+                },
+                success:function(data){
+                    if($.isEmptyObject(data.error)){
+                        console.log(data);
+                        alert(data.success);
+                    }else{
+
+                        alert("Correu um erro, tente novamente")
+                    }
+
+                }
+            });
+
+        }
+
+
     </script>
 </body>
 
